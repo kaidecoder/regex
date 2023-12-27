@@ -1256,14 +1256,16 @@ For instance, we’d like to find HTML tags <.*?>, and process them. It would be
 
 Let’s wrap the inner content into parentheses, like this: <(.*?)>.
 
-Now we’ll get both the tag as a whole <h1> and its contents h1 in the resulting array:
+Now we’ll get both the tag as a whole """<h1>""" and its contents h1 in the resulting array:
 
 let str = '<h1>Hello, world!</h1>';
-
+"""
 let tag = str.match(/<(.*?)>/);
 
 alert( tag[0] ); // <h1>
 alert( tag[1] ); // h1
+"""
+
 Nested groups
 Parentheses can be nested. In this case the numbering also goes from left to right.
 
@@ -1278,7 +1280,7 @@ Here’s how they are numbered (left to right, by the opening paren):
 
 
 In action:
-
+"""
 let str = '<span class="my">';
 
 let regexp = /<(([a-z]+)\s*([^>]*))>/;
@@ -1288,6 +1290,8 @@ alert(result[0]); // <span class="my">
 alert(result[1]); // span class="my"
 alert(result[2]); // span
 alert(result[3]); // class="my"
+"""
+
 The zero index of result always holds the full match.
 
 Then groups, numbered from left to right by an opening paren. The first group is returned as result[1]. Here it encloses the whole tag content.
