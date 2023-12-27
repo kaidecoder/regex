@@ -2,9 +2,9 @@
 Regular expressions is a powerful way of doing search and replace in strings.
 
 ## Patterns and flags
-regexp = new RegExp("pattern", "flags")
-regexp = /pattern/
-regexp = /pattern/gmi
+    regexp = new RegExp("pattern", "flags")
+    regexp = /pattern/
+    regexp = /pattern/gmi
  
 Slashes /.../ tell JavaScript that we are creating a regular expression. They play the same role as quotes for strings.
 
@@ -41,51 +41,53 @@ It has 3 working modes:
 
 If the regular expression has flag g, it returns an array of all matches:
 
-let str = "We will, we will rock you";
+    let str = "We will, we will rock you";
 
-alert( str.match(/we/gi) ); // We,we (an array of 2 substrings that match)
+    alert( str.match(/we/gi) ); // We,we (an array of 2 substrings that match)
 Please note that both We and we are found, because flag i makes the regular expression case-insensitive.
 
 If there’s no such flag it returns only the first match in the form of an array, with the full match at index 0 and some additional details in properties:
 
-let str = "We will, we will rock you";
+    let str = "We will, we will rock you";
 
-let result = str.match(/we/i); // without flag g
+    let result = str.match(/we/i); // without flag g
 
-alert( result[0] );     // We (1st match)
-alert( result.length ); // 1
+    alert( result[0] );     // We (1st match)
+    alert( result.length ); // 1
 
-// Details:
-alert( result.index );  // 0 (position of the match)
-alert( result.input );  // We will, we will rock you (source string)
+    Details:
+    alert( result.index );  // 0 (position of the match)
+    alert( result.input );  // We will, we will rock you (source string)
+
 The array may have other indexes, besides 0 if a part of the regular expression is enclosed in parentheses. We’ll cover that in the chapter Capturing groups.
 
 And, finally, if there are no matches, null is returned (doesn’t matter if there’s flag g or not).
 
 This a very important nuance. If there are no matches, we don’t receive an empty array, but instead receive null. Forgetting about that may lead to errors, e.g.:
 
-let matches = "JavaScript".match(/HTML/); // = null
+    let matches = "JavaScript".match(/HTML/); // = null
 
-if (!matches.length) { // Error: Cannot read property 'length' of null
-  alert("Error in the line above");
-}
+    if (!matches.length) { // Error: Cannot read property 'length' of null
+    alert("Error in the line above");
+    }
 If we’d like the result to always be an array, we can write it this way:
 
-let matches = "JavaScript".match(/HTML/) || [];
+    let matches = "JavaScript".match(/HTML/) || [];
 
-if (!matches.length) {
-  alert("No matches"); // now it works
-}
+    if (!matches.length) {
+    alert("No matches"); // now it works
+    }
 Replacing: str.replace
+
 The method str.replace(regexp, replacement) replaces matches found using regexp in string str with replacement (all matches if there’s flag g, otherwise, only the first one).
 
 For instance:
 
-// no flag g
-alert( "We will, we will".replace(/we/i, "I") ); // I will, we will
+    // no flag g
+    alert( "We will, we will".replace(/we/i, "I") ); // I will, we will
 
-// with flag g
-alert( "We will, we will".replace(/we/ig, "I") ); // I will, I will
+    // with flag g
+    alert( "We will, we will".replace(/we/ig, "I") ); // I will, I will
 The second argument is the replacement string. We can use special character combinations in it to insert fragments of the match:
 
 Symbols	Action in the replacement string
@@ -97,14 +99,17 @@ $<name>	inserts the contents of the parentheses with the given name, more about 
 $$	inserts character $
 An example with $&:
 
-alert( "I love HTML".replace(/HTML/, "$& and JavaScript") ); // I love HTML and JavaScript
+    alert( "I love HTML".replace(/HTML/, "$& and JavaScript") ); // I love HTML and JavaScript
+
 Testing: regexp.test
+
 The method regexp.test(str) looks for at least one match, if found, returns true, otherwise false.
 
-let str = "I love JavaScript";
-let regexp = /LOVE/i;
+    let str = "I love JavaScript";
+    let regexp = /LOVE/i;
 
-alert( regexp.test(str) ); // true
+    alert( regexp.test(str) ); // true
+
 Later in this chapter we’ll study more regular expressions, walk through more examples, and also meet other methods.
 
 Summary
@@ -125,23 +130,25 @@ For the start, let’s explore the “digit” class. It’s written as \d and c
 
 For instance, let’s find the first digit in the phone number:
 
-let str = "+7(903)-123-45-67";
+    let str = "+7(903)-123-45-67";
 
-let regexp = /\d/;
+    let regexp = /\d/;
 
-alert( str.match(regexp) ); // 7
+    alert( str.match(regexp) ); // 7
+
 Without the flag g, the regular expression only looks for the first match, that is the first digit \d.
 
 Let’s add the g flag to find all digits:
 
-let str = "+7(903)-123-45-67";
+    let str = "+7(903)-123-45-67";
 
-let regexp = /\d/g;
+    let regexp = /\d/g;
 
-alert( str.match(regexp) ); // array of matches: 7,9,0,3,1,2,3,4,5,6,7
+    alert( str.match(regexp) ); // array of matches: 7,9,0,3,1,2,3,4,5,6,7
 
-// let's make the digits-only phone number of them:
-alert( str.match(regexp).join('') ); // 79031234567
+    // let's make the digits-only phone number of them:
+    alert( str.match(regexp).join('') ); // 79031234567
+
 That was a character class for digits. There are other character classes as well.
 
 Most used are:
@@ -158,13 +165,14 @@ A regexp may contain both regular symbols and character classes.
 
 For instance, CSS\d matches a string CSS with a digit after it:
 
-let str = "Is there CSS4?";
-let regexp = /CSS\d/
+    let str = "Is there CSS4?";
+    let regexp = /CSS\d/
 
-alert( str.match(regexp) ); // CSS4
-Also we can use many character classes:
+    alert( str.match(regexp) ); // CSS4
+    Also we can use many character classes:
 
-alert( "I love HTML5!".match(/\s\w\w\w\w\d/) ); // ' HTML5'
+    alert( "I love HTML5!".match(/\s\w\w\w\w\d/) ); // ' HTML5'
+
 The match (each regexp character class has the corresponding result character):
 
 
@@ -181,47 +189,52 @@ Non-space: any character except \s, for instance a letter.
 Non-wordly character: anything but \w, e.g a non-latin letter or a space.
 In the beginning of the chapter we saw how to make a number-only phone number from a string like +7(903)-123-45-67: find all digits and join them.
 
-let str = "+7(903)-123-45-67";
+    let str = "+7(903)-123-45-67";
 
-alert( str.match(/\d/g).join('') ); // 79031234567
+    alert( str.match(/\d/g).join('') ); // 79031234567
+
 An alternative, shorter way is to find non-digits \D and remove them from the string:
 
-let str = "+7(903)-123-45-67";
+    let str = "+7(903)-123-45-67";
 
-alert( str.replace(/\D/g, "") ); // 79031234567
+    alert( str.replace(/\D/g, "") ); // 79031234567
+
 A dot is “any character”
 A dot . is a special character class that matches “any character except a newline”.
 
 For instance:
 
-alert( "Z".match(/./) ); // Z
-Or in the middle of a regexp:
+    alert( "Z".match(/./) ); // Z
+    Or in the middle of a regexp:
 
-let regexp = /CS.4/;
+    let regexp = /CS.4/;
 
-alert( "CSS4".match(regexp) ); // CSS4
-alert( "CS-4".match(regexp) ); // CS-4
-alert( "CS 4".match(regexp) ); // CS 4 (space is also a character)
+    alert( "CSS4".match(regexp) ); // CSS4
+    alert( "CS-4".match(regexp) ); // CS-4
+    alert( "CS 4".match(regexp) ); // CS 4 (space is also a character)
+
 Please note that a dot means “any character”, but not the “absence of a character”. There must be a character to match it:
 
-alert( "CS4".match(/CS.4/) ); // null, no match because there's no character for the dot
+    alert( "CS4".match(/CS.4/) ); // null, no match because there's no character for the dot
+
 Dot as literally any character with “s” flag
 By default, a dot doesn’t match the newline character \n.
 
 For instance, the regexp A.B matches A, and then B with any character between them, except a newline \n:
 
-alert( "A\nB".match(/A.B/) ); // null (no match)
+    alert( "A\nB".match(/A.B/) ); // null (no match)
 There are many situations when we’d like a dot to mean literally “any character”, newline included.
 
 That’s what flag s does. If a regexp has it, then a dot . matches literally any character:
 
-alert( "A\nB".match(/A.B/s) ); // A\nB (match!)
+    alert( "A\nB".match(/A.B/s) ); // A\nB (match!)
+
 Not supported in IE
 The s flag is not supported in IE.
 
 Luckily, there’s an alternative, that works everywhere. We can use a regexp like [\s\S] to match “any character” (this pattern will be covered in the article Sets and ranges [...]).
 
-alert( "A\nB".match(/A[\s\S]B/) ); // A\nB (match!)
+    alert( "A\nB".match(/A[\s\S]B/) ); // A\nB (match!)
 The pattern [\s\S] literally says: “a space character OR not a space character”. In other words, “anything”. We could use another pair of complementary classes, such as [\d\D], that doesn’t matter. Or even the [^] – as it means match any character except nothing.
 
 Also we can use this trick if we want both kind of “dots” in the same pattern: the actual dot . behaving the regular way (“not including a newline”), and also a way to match “any character” with [\s\S] or alike.
@@ -233,12 +246,13 @@ But if a regexp doesn’t take spaces into account, it may fail to work.
 
 Let’s try to find digits separated by a hyphen:
 
-alert( "1 - 5".match(/\d-\d/) ); // null, no match!
-Let’s fix it adding spaces into the regexp \d - \d:
+    alert( "1 - 5".match(/\d-\d/) ); // null, no match!
+    Let’s fix it adding spaces into the regexp \d - \d:
 
-alert( "1 - 5".match(/\d - \d/) ); // 1 - 5, now it works
-// or we can use \s class:
-alert( "1 - 5".match(/\d\s-\s\d/) ); // 1 - 5, also works
+    alert( "1 - 5".match(/\d - \d/) ); // 1 - 5, now it works
+    // or we can use \s class:
+    alert( "1 - 5".match(/\d\s-\s\d/) ); // 1 - 5, also works
+
 A space is a character. Equal in importance with any other character.
 
 We can’t add or remove spaces from a regular expression and expect it to work the same.
@@ -281,8 +295,9 @@ Long time ago, when JavaScript language was created, Unicode encoding was simple
 
 For instance, length thinks that here are two characters:
 
-alert('😄'.length); // 2
-alert('𝒳'.length); // 2
+    alert('😄'.length); // 2
+    alert('𝒳'.length); // 2
+
 …But we can see that there’s only one, right? The point is that length treats 4 bytes as two 2-byte characters. That’s incorrect, because they must be considered only together (so-called “surrogate pair”, you can read about them in the article Strings).
 
 By default, regular expressions also treat 4-byte “long characters” as a pair of 2-byte ones. And, as it happens with strings, that may lead to odd results. We’ll see that a bit later, in the article Sets and ranges [...].
@@ -300,10 +315,10 @@ For instance, \p{Letter} denotes a letter in any language. We can also use \p{L}
 
 In the example below three kinds of letters will be found: English, Georgian and Korean.
 
-let str = "A ბ ㄱ";
+    let str = "A ბ ㄱ";
 
-alert( str.match(/\p{L}/gu) ); // A,ბ,ㄱ
-alert( str.match(/\p{L}/g) ); // null (no matches, \p doesn't work without the flag "u")
+    alert( str.match(/\p{L}/gu) ); // A,ბ,ㄱ
+    alert( str.match(/\p{L}/g) ); // null (no matches, \p doesn't work without the flag "u")
 Here’s the main character categories and their subcategories:
 
 Letter L:
@@ -1280,17 +1295,17 @@ Here’s how they are numbered (left to right, by the opening paren):
 
 
 In action:
-"""
-let str = '<span class="my">';
 
-let regexp = /<(([a-z]+)\s*([^>]*))>/;
+                let str = '<span class="my">';
 
-let result = str.match(regexp);
-alert(result[0]); // <span class="my">
-alert(result[1]); // span class="my"
-alert(result[2]); // span
-alert(result[3]); // class="my"
-"""
+                let regexp = /<(([a-z]+)\s*([^>]*))>/;
+
+                let result = str.match(regexp);
+                alert(result[0]); // <span class="my">
+                alert(result[1]); // span class="my"
+                alert(result[2]); // span
+                alert(result[3]); // class="my"
+
 
 The zero index of result always holds the full match.
 
@@ -2503,8 +2518,8 @@ For instance:
 let str = "I love JavaScript";
 
 // these two tests do the same
-alert( /love/i.test(str) ); // true
-alert( str.search(/love/i) != -1 ); // true
+    alert( /love/i.test(str) ); // true
+    alert( str.search(/love/i) != -1 ); // true
 An example with the negative answer:
 
 let str = "Bla-bla-bla";
