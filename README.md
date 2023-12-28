@@ -2349,16 +2349,16 @@ Usage example:
 
     alert(matchAll); // [object RegExp String Iterator], not array, but an iterable
 
-matchAll = Array.from(matchAll); // array now
+    matchAll = Array.from(matchAll); // array now
 
-let firstMatch = matchAll[0];
-alert( firstMatch[0] );  // <h1>
-alert( firstMatch[1] );  // h1
-alert( firstMatch.index );  // 0
-alert( firstMatch.input );  // <h1>Hello, world!</h1>
+    let firstMatch = matchAll[0];
+    alert( firstMatch[0] );  // <h1>
+    alert( firstMatch[1] );  // h1
+    alert( firstMatch.index );  // 0
+    alert( firstMatch.input );  // <h1>Hello, world!</h1>
 If we use for..of to loop over matchAll matches, then we don’t need Array.from any more.
 
-str.split(regexp|substr, limit)
+    str.split(regexp|substr, limit)
 Splits the string using the regexp (or a substring) as a delimiter.
 
 We can use split with strings, like this:
