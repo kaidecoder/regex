@@ -1413,6 +1413,7 @@ Every match, returned by matchAll, has the same format as returned by match with
     alert( tag1[1] ); // h1
     alert( tag1.index ); // 0
     alert( tag1.input ); // <h1> <h2>
+
 Why is a result of matchAll an iterable object, not an array?
 Why is the method designed like that? The reason is simple – for the optimization.
 
@@ -1688,9 +1689,10 @@ But that’s wrong, the alternation should only be used in the “hours” part 
 
 The final solution:
 
-let regexp = /([01]\d|2[0-3]):[0-5]\d/g;
+    let regexp = /([01]\d|2[0-3]):[0-5]\d/g;
 
-alert("00:00 10:10 23:59 25:99 1:2".match(regexp)); // 00:00,10:10,23:59
+    alert("00:00 10:10 23:59 25:99 1:2".match(regexp)); // 00:00,10:10,23:59
+
 Tasks
 Find programming languages
 There are many programming languages, for instance Java, JavaScript, PHP, C, C++.
@@ -1768,9 +1770,9 @@ Write a regexp to find the tag <style...>. It should match the full tag: it may 
 
 For instance:
 
-let regexp = /your regexp/g;
+    let regexp = /your regexp/g;
 
-alert( '<style> <styler> <style test="...
+    alert( '<style> <styler> <style test="...
 
 ## Lookahead and lookbehind
 Sometimes we need to find only those matches for a pattern that are followed or preceded by another pattern.
@@ -1982,26 +1984,26 @@ Then the star quantifier (\d+)* applies. But there are no more digits in the tex
 
 The next character in the pattern is the string end $. But in the text we have z instead, so there’s no match:
 
-           X
-\d+........$
-(123456789)z
+            X
+    \d+........$
+    (123456789)z
 As there’s no match, the greedy quantifier + decreases the count of repetitions, backtracks one character back.
 
 Now \d+ takes all digits except the last one (12345678):
 
-\d+.......
-(12345678)9z
+    \d+.......
+    (12345678)9z
 Then the engine tries to continue the search from the next position (right after 12345678).
 
 The star (\d+)* can be applied – it gives one more match of \d+, the number 9:
 
-\d+.......\d+
-(12345678)(9)z
+    \d+.......\d+
+    (12345678)(9)z
 The engine tries to match $ again, but fails, because it meets z instead:
 
              X
-\d+.......\d+
-(12345678)(9)z
+    \d+.......\d+
+    (12345678)(9)z
 There’s no match, so the engine will continue backtracking, decreasing the number of repetitions. Backtracking generally works like this: the last greedy quantifier decreases the number of repetitions until it reaches the minimum. Then the previous greedy quantifier decreases, and so on.
 
 All possible combinations are attempted. Here are their examples.
@@ -2009,23 +2011,23 @@ All possible combinations are attempted. Here are their examples.
 The first number \d+ has 7 digits, and then a number of 2 digits:
 
              X
-\d+......\d+
-(1234567)(89)z
+    \d+......\d+
+    (1234567)(89)z
 The first number has 7 digits, and then two numbers of 1 digit each:
 
                X
-\d+......\d+\d+
-(1234567)(8)(9)z
+    \d+......\d+\d+
+    (1234567)(8)(9)z
 The first number has 6 digits, and then a number of 3 digits:
 
              X
-\d+.......\d+
-(123456)(789)z
+    \d+.......\d+
+    (123456)(789)z
 The first number has 6 digits, and then 2 numbers:
 
                X
-\d+.....\d+ \d+
-(123456)(78)(9)z
+    \d+.....\d+ \d+
+    (123456)(78)(9)z
 …And so on.
 
 There are many ways to split a sequence of digits 123456789 into numbers. To be precise, there are 2n-1, where n is the length of the sequence.
@@ -2066,10 +2068,10 @@ Let’s make the space non-optional by rewriting the regular expression as ^(\w+
 
 This regexp is equivalent to the previous one (matches the same) and works well:
 
-let regexp = /^(\w+\s)*\w*$/;
-let str = "An input string that takes a long time or even makes this regex hang!";
+    let regexp = /^(\w+\s)*\w*$/;
+    let str = "An input string that takes a long time or even makes this regex hang!";
 
-alert( regexp.test(str) ); // false
+    alert( regexp.test(str) ); // false
 Why did the problem disappear?
 
 That’s because now the space is mandatory.
@@ -2078,8 +2080,8 @@ The previous regexp, if we omit the space, becomes (\w+)*, leading to many combi
 
 So input could be matched as two repetitions of \w+, like this:
 
-\w+  \w+
-(inp)(ut)
+    \w+  \w+
+    (inp)(ut)
 The new pattern is different: (\w+\s)* specifies repetitions of words followed by a space! The input string can’t be matched as two repetitions of \w+\s, because the space is mandatory.
 
 The time needed to try a lot of (actually most of) combinations is now saved.
@@ -2095,11 +2097,11 @@ The root of the problem is that the regexp engine tries many combinations that a
 
 E.g. in the regexp (\d+)*$ it’s obvious for a human, that + shouldn’t backtrack. If we replace one \d+ with two separate \d+\d+, nothing changes:
 
-\d+........
-(123456789)!
+    \d+........
+    (123456789)!
 
-\d+...\d+....
-(1234)(56789)!
+    \d+...\d+....
+    (1234)(56789)!
 And in the original example ^(\w+\s?)*$ we may want to forbid backtracking in \w+. That is: \w+ should match a whole word, with the maximal possible length. There’s no need to lower the repetitions count in \w+ or to split it into two words \w+\w+ and so on.
 
 Modern regular expression engines support possessive quantifiers for that. Regular quantifiers become possessive if we add + after them. That is, we use \d++ instead of \d+ to stop + from backtracking.
