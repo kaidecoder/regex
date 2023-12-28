@@ -895,14 +895,16 @@ The regexp looks for character '<' followed by one or more Latin letters, and th
 
 Improved: /<[a-z][a-z0-9]*>/i
 
-According to the standard, HTML tag name may have a digit at any position except the first one, like <h1>.
+According to the standard, HTML tag name may have a digit at any position except the first one, like tag h1.
 
-alert( "<h1>Hi!</h1>".match(/<[a-z][a-z0-9]*>/gi) ); // <h1>
+    alert( "<h1>Hi!</h1>".match(/<[a-z][a-z0-9]*>/gi) ); // <h1>
+
 Regexp “opening or closing HTML-tag without attributes”: /<\/?[a-z][a-z0-9]*>/i
 
 We added an optional slash /? near the beginning of the pattern. Had to escape it with a backslash, otherwise JavaScript would think it is the pattern end.
 
-alert( "<h1>Hi!</h1>".match(/<\/?[a-z][a-z0-9]*>/gi) ); // <h1>, </h1>
+    alert( "<h1>Hi!</h1>".match(/<\/?[a-z][a-z0-9]*>/gi) ); // <h1>, </h1>
+    
 To make a regexp more precise, we often need make it more complex
 We can see one common rule in these examples: the more precise is the regular expression – the longer and more complex it is.
 
