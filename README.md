@@ -904,7 +904,7 @@ Regexp “opening or closing HTML-tag without attributes”: /<\/?[a-z][a-z0-9]*
 We added an optional slash /? near the beginning of the pattern. Had to escape it with a backslash, otherwise JavaScript would think it is the pattern end.
 
     alert( "<h1>Hi!</h1>".match(/<\/?[a-z][a-z0-9]*>/gi) ); // <h1>, </h1>
-    
+
 To make a regexp more precise, we often need make it more complex
 We can see one common rule in these examples: the more precise is the regular expression – the longer and more complex it is.
 
@@ -1276,15 +1276,15 @@ For instance, we’d like to find HTML tags <.*?>, and process them. It would be
 
 Let’s wrap the inner content into parentheses, like this: <(.*?)>.
 
-Now we’ll get both the tag as a whole """<h1>""" and its contents h1 in the resulting array:
+Now we’ll get both the tag as a whole h1 tag and its contents h1 in the resulting array:
 
-let str = '<h1>Hello, world!</h1>';
-"""
-let tag = str.match(/<(.*?)>/);
+    let str = '<h1>Hello, world!</h1>';
 
-alert( tag[0] ); // <h1>
-alert( tag[1] ); // h1
-"""
+    let tag = str.match(/<(.*?)>/);
+
+    alert( tag[0] ); // <h1>
+    alert( tag[1] ); // h1
+
 
 Nested groups
 Parentheses can be nested. In this case the numbering also goes from left to right.
