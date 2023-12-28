@@ -386,22 +386,22 @@ There’s a Unicode property Script (a writing system), that may have a value: C
 
 To look for characters in a given writing system we should use Script=<value>, e.g. for Cyrillic letters: \p{sc=Cyrillic}, for Chinese hieroglyphs: \p{sc=Han}, and so on:
 
-let regexp = /\p{sc=Han}/gu; // returns Chinese hieroglyphs
+    let regexp = /\p{sc=Han}/gu; // returns Chinese hieroglyphs
 
-let str = `Hello Привет 你好 123_456`;
+    let str = `Hello Привет 你好 123_456`;
 
-alert( str.match(regexp) ); // 你,好
+    alert( str.match(regexp) ); // 你,好
 Example: currency
 Characters that denote a currency, such as $, €, ¥, have Unicode property \p{Currency_Symbol}, the short alias: \p{Sc}.
 
 Let’s use it to look for prices in the format “currency, followed by a digit”:
 
-let regexp = /\p{Sc}\d/gu;
+    let regexp = /\p{Sc}\d/gu;
 
-let str = `Prices: $2, €1, ¥9`;
+    let str = `Prices: $2, €1, ¥9`;
 
-alert( str.match(regexp) ); // $2,€1,¥9
-Later, in the article Quantifiers +, *, ? and {n} we’ll see how to look for numbers that contain many digits.
+    alert( str.match(regexp) ); // $2,€1,¥9
+    Later, in the article Quantifiers +, *, ? and {n} we’ll see how to look for numbers that contain many digits.
 
 Summary
 Flag u enables the support of Unicode in regular expressions.
@@ -420,14 +420,14 @@ The caret ^ matches at the beginning of the text, and the dollar $ – at the en
 
 For instance, let’s test if the text starts with Mary:
 
-let str1 = "Mary had a little lamb";
-alert( /^Mary/.test(str1) ); // true
+    let str1 = "Mary had a little lamb";
+    alert( /^Mary/.test(str1) ); // true
 The pattern ^Mary means: “string start and then Mary”.
 
 Similar to this, we can test if the string ends with snow using snow$:
 
-let str1 = "its fleece was white as snow";
-alert( /snow$/.test(str1) ); // true
+    let str1 = "its fleece was white as snow";
+    alert( /snow$/.test(str1) ); // true
 In these particular cases we could use string methods startsWith/endsWith instead. Regular expressions should be used for more complex tests.
 
 Testing for a full match
@@ -440,9 +440,9 @@ In regular expressions language that’s \d\d:\d\d:
 let goodInput = "12:34";
 let badInput = "12:345";
 
-let regexp = /^\d\d:\d\d$/;
-alert( regexp.test(goodInput) ); // true
-alert( regexp.test(badInput) ); // false
+    let regexp = /^\d\d:\d\d$/;
+    alert( regexp.test(goodInput) ); // true
+    alert( regexp.test(badInput) ); // false
 Here the match for \d\d:\d\d must start exactly after the beginning of the text ^, and the end $ must immediately follow.
 
 The whole string must be exactly in this format. If there’s any deviation or an extra character, the result is false.
@@ -464,18 +464,19 @@ In the multiline mode they match not only at the beginning and the end of the st
 Searching at line start ^
 In the example below the text has multiple lines. The pattern /^\d/gm takes a digit from the beginning of each line:
 
-let str = `1st place: Winnie
-2nd place: Piglet
-3rd place: Eeyore`;
+    let str = `1st place: Winnie
+    2nd place: Piglet
+    3rd place: Eeyore`;
 
-console.log( str.match(/^\d/gm) ); // 1, 2, 3
+    console.log( str.match(/^\d/gm) ); // 1, 2, 3
 Without the flag m only the first digit is matched:
 
-let str = `1st place: Winnie
-2nd place: Piglet
-3rd place: Eeyore`;
+    let str = `1st place: Winnie
+    2nd place: Piglet
+    3rd place: Eeyore`;
 
-console.log( str.match(/^\d/g) ); // 1
+    console.log( str.match(/^\d/g) ); // 1
+
 That’s because by default a caret ^ only matches at the beginning of the text, and in the multiline mode – at the start of any line.
 
 Please note:
@@ -488,11 +489,11 @@ The dollar sign $ behaves similarly.
 
 The regular expression \d$ finds the last digit in every line
 
-let str = `Winnie: 1
-Piglet: 2
-Eeyore: 3`;
+    let str = `Winnie: 1
+    Piglet: 2
+    Eeyore: 3`;
 
-console.log( str.match(/\d$/gm) ); // 1,2,3
+    console.log( str.match(/\d$/gm) ); // 1,2,3
 Without the flag m, the dollar $ would only match the end of the whole text, so only the very last digit would be found.
 
 Please note:
@@ -507,11 +508,11 @@ What’s the difference? Let’s see an example.
 
 Here we search for \d\n instead of \d$:
 
-let str = `Winnie: 1
-Piglet: 2
-Eeyore: 3`;
+    let str = `Winnie: 1
+    Piglet: 2
+    Eeyore: 3`;
 
-console.log( str.match(/\d\n/g) ); // 1\n,2\n
+    console.log( str.match(/\d\n/g) ); // 1\n,2\n
 As we can see, there are 2 matches instead of 3.
 
 That’s because there’s no newline after 3 (there’s text end though, so it matches $).
@@ -532,8 +533,8 @@ Between two characters in the string, where one is a word character \w and the o
 At string end, if the last string character is a word character \w.
 For instance, regexp \bJava\b will be found in Hello, Java!, where Java is a standalone word, but not in Hello, JavaScript!.
 
-alert( "Hello, Java!".match(/\bJava\b/) ); // Java
-alert( "Hello, JavaScript!".match(/\bJava\b/) ); // null
+    alert( "Hello, Java!".match(/\bJava\b/) ); // Java
+    alert( "Hello, JavaScript!".match(/\bJava\b/) ); // null
 In the string Hello, Java! following positions correspond to \b:
 
 
@@ -544,16 +545,16 @@ Then matches the word Hello.
 Then the test \b matches again, as we’re between o and a comma.
 So the pattern \bHello\b would match, but not \bHell\b (because there’s no word boundary after l) and not Java!\b (because the exclamation sign is not a wordly character \w, so there’s no word boundary after it).
 
-alert( "Hello, Java!".match(/\bHello\b/) ); // Hello
-alert( "Hello, Java!".match(/\bJava\b/) );  // Java
-alert( "Hello, Java!".match(/\bHell\b/) );  // null (no match)
-alert( "Hello, Java!".match(/\bJava!\b/) ); // null (no match)
+    alert( "Hello, Java!".match(/\bHello\b/) ); // Hello
+    alert( "Hello, Java!".match(/\bJava\b/) );  // Java
+    alert( "Hello, Java!".match(/\bHell\b/) );  // null (no match)
+    alert( "Hello, Java!".match(/\bJava!\b/) ); // null (no match)
 We can use \b not only with words, but with digits as well.
 
 For example, the pattern \b\d\d\b looks for standalone 2-digit numbers. In other words, it looks for 2-digit numbers that are surrounded by characters different from \w, such as spaces or punctuation (or text start/end).
 
-alert( "1 23 456 78".match(/\b\d\d\b/g) ); // 23,78
-alert( "12,34,56".match(/\b\d\d\b/g) ); // 12,34,56
+    alert( "1 23 456 78".match(/\b\d\d\b/g) ); // 23,78
+    alert( "12,34,56".match(/\b\d\d\b/g) ); // 12,34,56
 Word boundary \b doesn’t work for non-latin alphabets
 The word boundary test \b checks that there should be \w on the one side from the position and "not \w" – on the other side.
 
@@ -587,38 +588,39 @@ That’s also called “escaping a character”.
 
 For example:
 
-alert( "Chapter 5.1".match(/\d\.\d/) ); // 5.1 (match!)
-alert( "Chapter 511".match(/\d\.\d/) ); // null (looking for a real dot \.)
+    alert( "Chapter 5.1".match(/\d\.\d/) ); // 5.1 (match!)
+    alert( "Chapter 511".match(/\d\.\d/) ); // null (looking for a real dot \.)
 Parentheses are also special characters, so if we want them, we should use \(. The example below looks for a string "g()":
 
-alert( "function g()".match(/g\(\)/) ); // "g()"
+    alert( "function g()".match(/g\(\)/) ); // "g()"
 If we’re looking for a backslash \, it’s a special character in both regular strings and regexps, so we should double it.
 
-alert( "1\\2".match(/\\/) ); // '\'
+    alert( "1\\2".match(/\\/) ); // '\'
+
 A slash
 A slash symbol '/' is not a special character, but in JavaScript it is used to open and close the regexp: /...pattern.../, so we should escape it too.
 
 Here’s what a search for a slash '/' looks like:
 
-alert( "/".match(/\//) ); // '/'
+    alert( "/".match(/\//) ); // '/'
 On the other hand, if we’re not using /.../, but create a regexp using new RegExp, then we don’t need to escape it:
 
-alert( "/".match(new RegExp("/")) ); // finds /
+    alert( "/".match(new RegExp("/")) ); // finds /
 new RegExp
 If we are creating a regular expression with new RegExp, then we don’t have to escape /, but need to do some other escaping.
 
 For instance, consider this:
 
-let regexp = new RegExp("\d\.\d");
+    let regexp = new RegExp("\d\.\d");
 
-alert( "Chapter 5.1".match(regexp) ); // null
+    alert( "Chapter 5.1".match(regexp) ); // null
 The similar search in one of previous examples worked with /\d\.\d/, but new RegExp("\d\.\d") doesn’t work, why?
 
 The reason is that backslashes are “consumed” by a string. As we may recall, regular strings have their own special characters, such as \n, and a backslash is used for escaping.
 
 Here’s how “\d.\d” is perceived:
 
-alert("\d\.\d"); // d.d
+    alert("\d\.\d"); // d.d
 String quotes “consume” backslashes and interpret them on their own, for instance:
 
 \n – becomes a newline character,
@@ -628,12 +630,13 @@ So new RegExp gets a string without backslashes. That’s why the search doesn�
 
 To fix it, we need to double backslashes, because string quotes turn \\ into \:
 
-let regStr = "\\d\\.\\d";
-alert(regStr); // \d\.\d (correct now)
+    let regStr = "\\d\\.\\d";
+    alert(regStr); // \d\.\d (correct now)
 
-let regexp = new RegExp(regStr);
+    let regexp = new RegExp(regStr);
 
-alert( "Chapter 5.1".match(regexp) ); // 5.1
+    alert( "Chapter 5.1".match(regexp) ); // 5.1
+
 Summary
 To search for special characters [ \ ^ $ . | ? * + ( ) literally, we need to prepend them with a backslash \ (“escape them”).
 We also need to escape / if we’re inside /.../ (but not inside new RegExp).
@@ -649,13 +652,13 @@ For instance, [eao] means any of the 3 characters: 'a', 'e', or 'o'.
 That’s called a set. Sets can be used in a regexp along with regular characters:
 
 // find [t or m], and then "op"
-alert( "Mop top".match(/[tm]op/gi) ); // "Mop", "top"
+    alert( "Mop top".match(/[tm]op/gi) ); // "Mop", "top"
 Please note that although there are multiple characters in the set, they correspond to exactly one character in the match.
 
 So the example below gives no matches:
 
 // find "V", then [o or i], then "la"
-alert( "Voila".match(/V[oi]la/) ); // null, no matches
+    alert( "Voila".match(/V[oi]la/) ); // null, no matches
 The pattern searches for:
 
 V,
@@ -670,7 +673,7 @@ For instance, [a-z] is a character in range from a to z, and [0-5] is a digit fr
 
 In the example below we’re searching for "x" followed by two digits or letters from A to F:
 
-alert( "Exception 0xAF".match(/x[0-9A-F][0-9A-F]/g) ); // xAF
+    alert( "Exception 0xAF".match(/x[0-9A-F][0-9A-F]/g) ); // xAF
 Here [0-9A-F] has two ranges: it searches for a character that is either a digit from 0 to 9 or a letter from A to F.
 
 If we’d like to look for lowercase letters as well, we can add the range a-f: [0-9A-Fa-f]. Or add the flag i.
@@ -701,12 +704,12 @@ Connector_Punctuation (Pc) – for the underscore '_' and similar characters,
 Join_Control (Join_C) – two special codes 200c and 200d, used in ligatures, e.g. in Arabic.
 An example of use:
 
-let regexp = /[\p{Alpha}\p{M}\p{Nd}\p{Pc}\p{Join_C}]/gu;
+    let regexp = /[\p{Alpha}\p{M}\p{Nd}\p{Pc}\p{Join_C}]/gu;
 
-let str = `Hi 你好 12`;
+    let str = `Hi 你好 12`;
 
 // finds all letters and digits:
-alert( str.match(regexp) ); // H,i,你,好,1,2
+    alert( str.match(regexp) ); // H,i,你,好,1,2
 Of course, we can edit this pattern: add Unicode properties or remove them. Unicode properties are covered in more details in the article Unicode: flag "u" and class \p{...}.
 
 Unicode properties aren’t supported in IE
@@ -1292,7 +1295,8 @@ The tag attributes: class="my".
 Let’s add parentheses for them: <(([a-z]+)\s*([^>]*))>.
 
 Here’s how they are numbered (left to right, by the opening paren):
-
+    
+    < (( [a-z]+ ) \s* ( [^>]* ))> 
 
 In action:
 
@@ -1314,7 +1318,7 @@ Then groups, numbered from left to right by an opening paren. The first group is
 Then in result[2] goes the group from the second opening paren ([a-z]+) – tag name, then in result[3] the tag: ([^>]*).
 
 The contents of every group in the string:
-
+    < (( [a-z]+ ) \s* ( [^>]* )) >
 
 Optional groups
 Even if a group is optional and doesn’t exist in the match (e.g. has the quantifier (...)?), the corresponding result array item is present and equals undefined.
