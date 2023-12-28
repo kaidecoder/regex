@@ -77,6 +77,7 @@ If we’d like the result to always be an array, we can write it this way:
     if (!matches.length) {
     alert("No matches"); // now it works
     }
+
 Replacing: str.replace
 
 The method str.replace(regexp, replacement) replaces matches found using regexp in string str with replacement (all matches if there’s flag g, otherwise, only the first one).
@@ -90,13 +91,13 @@ For instance:
     alert( "We will, we will".replace(/we/ig, "I") ); // I will, I will
 The second argument is the replacement string. We can use special character combinations in it to insert fragments of the match:
 
-Symbols	Action in the replacement string
-$&	inserts the whole match
-$`	inserts a part of the string before the match
-$'	inserts a part of the string after the match
-$n	if n is a 1-2 digit number, then it inserts the contents of n-th parentheses, more about it in the chapter Capturing groups
-$<name>	inserts the contents of the parentheses with the given name, more about it in the chapter Capturing groups
-$$	inserts character $
+    Symbols	Action in the replacement string
+    $&	inserts the whole match
+    $`	inserts a part of the string before the match
+    $'	inserts a part of the string after the match
+    $n	if n is a 1-2 digit number, then it inserts the contents of n-th parentheses, more about it in the chapter Capturing groups
+    $<name>	inserts the contents of the parentheses with the given name, more about it in the chapter Capturing groups
+    $$	inserts character $
 An example with $&:
 
     alert( "I love HTML".replace(/HTML/, "$& and JavaScript") ); // I love HTML and JavaScript
