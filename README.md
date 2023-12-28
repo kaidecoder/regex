@@ -2296,39 +2296,39 @@ It has 3 modes:
 
 If the regexp doesn’t have flag g, then it returns the first match as an array with capturing groups and properties index (position of the match), input (input string, equals str):
 
-let str = "I love JavaScript";
+    let str = "I love JavaScript";
 
-let result = str.match(/Java(Script)/);
+    let result = str.match(/Java(Script)/);
 
-alert( result[0] );     // JavaScript (full match)
-alert( result[1] );     // Script (first capturing group)
-alert( result.length ); // 2
+    alert( result[0] );     // JavaScript (full match)
+    alert( result[1] );     // Script (first capturing group)
+    alert( result.length ); // 2
 
 // Additional information:
-alert( result.index );  // 7 (match position)
-alert( result.input );  // I love JavaScript (source string)
+    alert( result.index );  // 7 (match position)
+    alert( result.input );  // I love JavaScript (source string)
 If the regexp has flag g, then it returns an array of all matches as strings, without capturing groups and other details.
 
-let str = "I love JavaScript";
+    let str = "I love JavaScript";
 
-let result = str.match(/Java(Script)/g);
+    let result = str.match(/Java(Script)/g);
 
-alert( result[0] ); // JavaScript
-alert( result.length ); // 1
+    alert( result[0] ); // JavaScript
+    alert( result.length ); // 1
 If there are no matches, no matter if there’s flag g or not, null is returned.
 
 That’s an important nuance. If there are no matches, we don’t get an empty array, but null. It’s easy to make a mistake forgetting about it, e.g.:
 
-let str = "I love JavaScript";
+    let str = "I love JavaScript";
 
-let result = str.match(/HTML/);
+    let result = str.match(/HTML/);
 
-alert(result); // null
-alert(result.length); // Error: Cannot read property 'length' of null
-If we want the result to be an array, we can write like this:
+    alert(result); // null
+    alert(result.length); // Error: Cannot read property 'length' of null
+    If we want the result to be an array, we can write like this:
 
-let result = str.match(regexp) || [];
-str.matchAll(regexp)
+    let result = str.match(regexp) || [];
+    str.matchAll(regexp)
 A recent addition
 This is a recent addition to the language. Old browsers may need polyfills.
 The method str.matchAll(regexp) is a “newer, improved” variant of str.match.
@@ -2342,12 +2342,12 @@ Every match is returned as an array with capturing groups (the same format as st
 If there are no results, it returns an empty iterable object instead of null.
 Usage example:
 
-let str = '<h1>Hello, world!</h1>';
-let regexp = /<(.*?)>/g;
+    let str = '<h1>Hello, world!</h1>';
+    let regexp = /<(.*?)>/g;
 
-let matchAll = str.matchAll(regexp);
+    let matchAll = str.matchAll(regexp);
 
-alert(matchAll); // [object RegExp String Iterator], not array, but an iterable
+    alert(matchAll); // [object RegExp String Iterator], not array, but an iterable
 
 matchAll = Array.from(matchAll); // array now
 
