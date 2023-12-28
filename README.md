@@ -1357,11 +1357,12 @@ When we search for all matches (flag g), the match method does not return conten
 
 For example, let’s find all tags in a string:
 
-let str = '<h1> <h2>';
+    let str = '<h1> <h2>';
 
-let tags = str.match(/<(.*?)>/g);
+    let tags = str.match(/<(.*?)>/g);
 
-alert( tags ); // <h1>,<h2>
+    alert( tags ); // <h1>,<h2>
+    
 The result is an array of matches, but without details about each of them. But in practice we usually need contents of capturing groups in the result.
 
 To get them, we should search using the method str.matchAll(regexp).
