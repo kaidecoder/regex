@@ -1362,7 +1362,7 @@ For example, let’s find all tags in a string:
     let tags = str.match(/<(.*?)>/g);
 
     alert( tags ); // <h1>,<h2>
-    
+
 The result is an array of matches, but without details about each of them. But in practice we usually need contents of capturing groups in the result.
 
 To get them, we should search using the method str.matchAll(regexp).
@@ -1376,17 +1376,18 @@ When the flag g is present, it returns every match as an array with groups.
 If there are no matches, it returns not null, but an empty iterable object.
 For instance:
 
-let results = '<h1> <h2>'.matchAll(/<(.*?)>/gi);
+    let results = '<h1> <h2>'.matchAll(/<(.*?)>/gi);
 
-// results - is not an array, but an iterable object
-alert(results); // [object RegExp String Iterator]
+    // results - is not an array, but an iterable object
+    alert(results); // [object RegExp String Iterator]
 
-alert(results[0]); // undefined (*)
+    alert(results[0]); // undefined (*)
 
-results = Array.from(results); // let's turn it into array
+    results = Array.from(results); // let's turn it into array
 
-alert(results[0]); // <h1>,h1 (1st tag)
-alert(results[1]); // <h2>,h2 (2nd tag)
+    alert(results[0]); // <h1>,h1 (1st tag)
+    alert(results[1]); // <h2>,h2 (2nd tag)
+    
 As we can see, the first difference is very important, as demonstrated in the line (*). We can’t get the match as results[0], because that object isn’t pseudoarray. We can turn it into a real Array using Array.from. There are more details about pseudoarrays and iterables in the article Iterables.
 
 There’s no need in Array.from if we’re looping over results:
