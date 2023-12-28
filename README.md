@@ -1387,31 +1387,32 @@ For instance:
 
     alert(results[0]); // <h1>,h1 (1st tag)
     alert(results[1]); // <h2>,h2 (2nd tag)
-    
+
 As we can see, the first difference is very important, as demonstrated in the line (*). We can’t get the match as results[0], because that object isn’t pseudoarray. We can turn it into a real Array using Array.from. There are more details about pseudoarrays and iterables in the article Iterables.
 
 There’s no need in Array.from if we’re looping over results:
 
-let results = '<h1> <h2>'.matchAll(/<(.*?)>/gi);
+    let results = '<h1> <h2>'.matchAll(/<(.*?)>/gi);
 
-for(let result of results) {
-  alert(result);
-  // first alert: <h1>,h1
-  // second: <h2>,h2
-}
-…Or using destructuring:
+    for(let result of results) {
+    alert(result);
+    // first alert: <h1>,h1
+    // second: <h2>,h2
+    }
+    …Or using destructuring:
 
-let [tag1, tag2] = '<h1> <h2>'.matchAll(/<(.*?)>/gi);
+    let [tag1, tag2] = '<h1> <h2>'.matchAll(/<(.*?)>/gi);
+
 Every match, returned by matchAll, has the same format as returned by match without flag g: it’s an array with additional properties index (match index in the string) and input (source string):
 
-let results = '<h1> <h2>'.matchAll(/<(.*?)>/gi);
+    let results = '<h1> <h2>'.matchAll(/<(.*?)>/gi);
 
-let [tag1, tag2] = results;
+    let [tag1, tag2] = results;
 
-alert( tag1[0] ); // <h1>
-alert( tag1[1] ); // h1
-alert( tag1.index ); // 0
-alert( tag1.input ); // <h1> <h2>
+    alert( tag1[0] ); // <h1>
+    alert( tag1[1] ); // h1
+    alert( tag1.index ); // 0
+    alert( tag1.input ); // <h1> <h2>
 Why is a result of matchAll an iterable object, not an array?
 Why is the method designed like that? The reason is simple – for the optimization.
 
